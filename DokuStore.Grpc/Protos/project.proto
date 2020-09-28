@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+option csharp_namespace = "DokuStore.Grpc.Protos";
+
+// The project service definition
+service ProjectServiceDefinition {
+  // Create new project
+  rpc CreateProject (CreateProjectRequest) returns (ProjectResponse);
+  // Update existing project
+  rpc UpdateProject (UpdateProjectRequest) returns (ProjectResponse);
+  // Delete existing project
+  rpc DeleteProject (DeleteProjectRequest) returns (DeleteProjectResponse);
+  // Get existing projects by user
+  rpc GetProjectsByUser (GetProjectsByUserRequest) returns (stream ProjectResponse);
+  // Add user to existing project
+  rpc AddUserToProject (AddUserToProjectRequest) returns (AddUserToProjectResponse);
+  // Remove user to existing project
+  rpc RemoveUserRoleFromProject (RemoveUserRoleFromProjectRequest) returns (RemoveUserRoleFromProjectResponse);
+  // Get users by project
+  rpc GetUsersByProject (GetUsersByProjectRequest) returns (stream UserResponse);
+}
+
+
+// Create new project
+message CreateProjectRequest {
+  string name = 1;
+  int32 customerId = 2;
+
+}
+message ProjectResponse {
+  int32 id = 1;
+  string name = 2;
+  int32 customerId = 3;
+}
+
+// Update existing project
+message UpdateProjectRequest {
+  int32 id = 1;
+  string name = 2;
+  int32 customerId = 3;
+}
+
+// Delete  project
+message DeleteProjectRequest {
+  int32 id = 1;
+
+}
+message DeleteProjectResponse {
+}
+
+
+// GetProjects By user
+message GetProjectsByUserRequest {
+	int32 identityId = 1;
+	int32 identityType = 2;
+	int32 projectId = 3;
+}
+
+// Add user to existing project
+message AddUserToProjectRequest {
+  int32 identityId = 1;
+  int32 identityType = 2;
+  int32 projectId = 3;
+  int32 roleId = 4;
+}
+
+
+
+message AddUserToProjectResponse {
+}
+
+
+message RemoveUserRoleFromProjectRequest {
+  int32 identityId = 1;
+  int32 projectId = 2;
+  int32 roleId = 3;
+}
+
+message RemoveUserRoleFromProjectResponse {
+}
+
+
+// Get users by project
+message GetUsersByProjectRequest {
+  int32 projectId = 1;
+}
+
+message UserResponse {
+  int32 identityId = 1;
+  int32 identityType = 2;
+}

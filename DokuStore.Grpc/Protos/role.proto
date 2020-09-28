@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "DokuStore.Grpc.Protos";
+
+// The role service definition
+service RoleServiceDefinition {
+  // Create new role
+  rpc CreateRole (CreateRoleRequest) returns (RoleResponse);
+  // Get existing roles
+  rpc GetRoles (GetRolesRequest) returns (stream RoleResponse);
+}
+
+
+// Create new role
+message CreateRoleRequest {
+  string name = 1;
+
+}
+message RoleResponse {
+  int32 id = 1;
+  string name = 2;
+}
+
+// Get Roles
+message GetRolesRequest {
+}

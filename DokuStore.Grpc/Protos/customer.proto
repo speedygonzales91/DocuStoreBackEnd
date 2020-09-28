@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option csharp_namespace = "DokuStore.Grpc.Protos";
+
+// The customer service definition
+service CustomerServiceDefinition {
+  // Create new customer
+  rpc CreateCustomer (CreateCustomerRequest) returns (CustomerResponse);
+  // Delete specific customer
+  rpc DeleteCustomer (DeleteCustomerRequest) returns (DeleteCustomerResponse);
+  // Update customer
+  rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerResponse);
+  // Get customers
+  rpc GetCustomers (GetCustomersRequest) returns (stream CustomerResponse);
+}
+
+
+// Create new customer
+message CreateCustomerRequest {
+  string name = 1;
+}
+message CustomerResponse {
+  int32 id = 1;
+  string name = 2;
+}
+
+// Delete specific customer
+message DeleteCustomerRequest {
+  int32 id = 1;
+}
+message DeleteCustomerResponse {
+}
+
+// Update specific customer
+message UpdateCustomerRequest {
+  int32 id = 1;
+  string name = 2;
+}
+message UpdateCustomerResponse {
+  int32 id = 1;
+  string name = 2;
+}
+
+// Get customers
+message GetCustomersRequest {
+}
+
+

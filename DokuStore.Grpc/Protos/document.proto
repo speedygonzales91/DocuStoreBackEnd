@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option csharp_namespace = "DokuStore.Grpc.Protos";
+import "google/protobuf/wrappers.proto";
+
+// The document service definition
+service DocumentServiceDefinition {
+  // Create new document
+  rpc CreateItem (CreateItemRequest) returns (ItemResponse);
+  // Update specific document
+  rpc UpdateItem (UpdateItemRequest) returns (ItemResponse);
+  // Get specific document
+  rpc GetItemDetails (GetItemDetailsRequest) returns (ItemResponse);
+  // Delete specific document
+  rpc DeleteItem (DeleteItemRequest) returns (DeleteItemResponse);
+  // Get documents
+  rpc GetItems (GetItemsRequest) returns (stream ItemResponse);
+  // Download document
+  rpc DownloadItem (DownloadItemRequest) returns (stream DataChunkResponse);
+}
+
+
+// Create new document
+message CreateItemRequest {
+  string name = 1;
+  google.protobuf.Int64Value parentId = 2;
+  int32 projectId = 3;
+  int32 typeId = 4;
+}
+message ItemResponse {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Int64Value parentId = 3;
+  int32 projectId = 4;
+  int32 typeId = 5;
+  google.protobuf.Int64Value size = 6;
+}
+
+// Update document
+message UpdateItemRequest {
+  int64 id = 1;
+  string name = 2;
+}
+
+// Get specific document
+message GetItemDetailsRequest {
+  int64 id = 1;
+}
+
+// Delete document
+message DeleteItemRequest {
+  int64 id = 1;
+}
+
+message DeleteItemResponse {
+}
+
+// Get documents for specific level
+message GetItemsRequest {
+  int32 projectId = 1;
+  google.protobuf.Int64Value parentId = 2;
+}
+
+// Download specific document
+message DownloadItemRequest {
+  int64 id = 1;
+}
+
+message DataChunkResponse {
+  string fileName = 1;
+  int64 fileSize = 2;
+  bytes chunk = 3;
+}
+
