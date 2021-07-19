@@ -11,6 +11,7 @@ namespace DocuStore.API
 {
     public class Program
     {
+        //Teszt
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
